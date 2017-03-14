@@ -1,0 +1,123 @@
+  <!doctype html>
+  <html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parallax Video demo with pause and play in mobile view</title>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    main {
+      position: relative;
+      background: #fff;
+      /*height: 2200px;*/
+    }
+
+    .video-wrap {
+      width: 100%;
+    }
+
+    .video-wrap::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+    }
+
+    .content-overlay {
+      position: absolute;
+      /*height: 200px;
+      width: 200px;*/
+      bottom: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      z-index: 100;
+      padding: 50px 0;
+    }
+
+    .content-overlay h1,
+    .content-overlay p {
+      text-align: center;
+      color: #fff;
+    }
+    .mutevideo{
+      background: rgba(128, 128, 128, 0.44);
+      position: absolute;
+      z-index: 20;
+      display: block;
+      margin: 0;
+      padding: 5px;
+      bottom: 50px;
+      left: 0;
+      border-radius: 0px 25px 25px 0px;
+
+    }
+    .fa{
+      color: white;
+      padding: 13px 15px;
+    }
+    </style>
+  </head>
+  <body>
+    <main>  
+      <h2 style="margin:700px auto; text-align:center;">scroll down to see the parallax</h2>
+      <div class="getoffset"></div>
+      <div id="video-wrap" class="video-wrap">
+      <div class="content-overlay">
+        <div class="mutevideo" onclick="mutevideo();"><i class="fa fa-volume-off fa-2x"></i></div>
+        </div>
+
+        <video title="Video" playsinline autoplay muted preload loop id="my-video">
+          <source src="http://techslides.com/demos/sample-videos/small.mp4" type='video/mp4 ; codecs="avc1.42E01E, mp4a.40.2"' />
+        </video>
+      </div>
+      <div class="getbottomoffset"></div>
+
+      <h2 style="margin:500px auto; text-align:center;">scroll down to see the parallax</h2>
+    </main>
+    <script src="http://code.jquery.com/jquery-3.1.0.slim.min.js"></script>
+    <script src="parallaxvideo.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#my-video').get(0).pause();
+        $('#my-video').backgroundVideo({
+        $videoWrap: $('#video-wrap'),
+        $outerWrap: $(window),
+        $window: $(window),
+        parallax: true,
+        parallaxOptions: {
+          effect: 1.5
+        },
+        pauseVideoOnViewLoss: true
+      });
+      });
+
+      function mutevideo() {
+        volume = $('#my-video').prop('muted');
+        if(volume == true){
+          $('#my-video').prop('muted',false);
+          icon = '<i class="fa fa-volume-up fa-2x"></i>';
+          $('.mutevideo').html(icon);
+        }
+        else{
+          $('#my-video').prop('muted',true);
+          icon = '<i class="fa fa-volume-off fa-2x"></i>';
+          $('.mutevideo').html(icon);
+        }
+      }
+    </script>
+  </body>
+  </html>
